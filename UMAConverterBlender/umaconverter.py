@@ -148,7 +148,7 @@ def get_cc_base_hip_height_global():
 
 def check_rig():
     """Checks if the current scene contains a CC3/4 or UMA rig. Returns a dictionary with the results."""
-    rig_status = {"is_cc3_4_rig": False, "is_uma_rig": False}
+    rig_status = {"is_cc3_4_rig": False, "is_uma_rig": False, "is_BaseBoneRoot": False}
     for obj in bpy.data.objects:
         if obj.type == 'ARMATURE':
             bones = obj.data.bones
