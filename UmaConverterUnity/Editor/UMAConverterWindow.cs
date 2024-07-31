@@ -6,13 +6,13 @@ namespace UMAConverter
     {
         private bool integrationGameCreatorInventory = false;
 
-        // Füge hier weitere Booleans hinzu, wie benötigt.
+        // FÃ¼ge hier weitere Booleans hinzu, wie benÃ¶tigt.
 
-        // Menüpunkt hinzufügen
+        // MenÃ¼punkt hinzufÃ¼gen
         [MenuItem("Tools/Character Creator 4 To UMA")]
         public static void ShowWindow()
         {
-            // Fenster öffnen
+            // Fenster Ã¶ffnen
             EditorWindow window = GetWindow<UMAConverterWindow>("UMA Converter Configuration");
             window.minSize = new Vector2(400, 400);
             window.maxSize = new Vector2(400, 800);
@@ -51,7 +51,7 @@ namespace UMAConverter
             EditorGUILayout.Space();
 
             EditorGUILayout.LabelField("Integrations:", EditorStyles.largeLabel);
-            // Speichere die Änderung der Integration beim Ändern des Toggles
+            // Speichere die Ã„nderung der Integration beim Ã„ndern des Toggles
             bool newIntegrationGameCreatorInventory = EditorGUILayout.Toggle("GameCreator Inventory", currentIntegrationGameCreatorInventory);
             if (newIntegrationGameCreatorInventory != currentIntegrationGameCreatorInventory)
             {
@@ -65,7 +65,7 @@ namespace UMAConverter
             }
             EditorGUILayout.Space();
             EditorGUILayout.LabelField("UMA Converter Settings", EditorStyles.largeLabel);
-            // Editor für das ScriptableObject darstellen
+            // Editor fÃ¼r das ScriptableObject darstellen
             Editor editor = Editor.CreateEditor(settings);
             editor.OnInspectorGUI();
         }
@@ -75,10 +75,10 @@ namespace UMAConverter
             // Hole die aktuellen Scripting Define Symbols
             var symbols = PlayerSettings.GetScriptingDefineSymbolsForGroup(EditorUserBuildSettings.selectedBuildTargetGroup);
 
-            // Prüfe, ob das Symbol bereits gesetzt ist
+            // PrÃ¼fe, ob das Symbol bereits gesetzt ist
             if (enable && !symbols.Contains(symbol))
             {
-                // Füge das Symbol hinzu
+                // FÃ¼ge das Symbol hinzu
                 symbols += ";" + symbol;
             }
             else if (!enable && symbols.Contains(symbol))
@@ -95,7 +95,7 @@ namespace UMAConverter
             // Hole die aktuellen Scripting Define Symbols
             var symbols = PlayerSettings.GetScriptingDefineSymbolsForGroup(EditorUserBuildSettings.selectedBuildTargetGroup);
 
-            // Prüfe, ob das Symbol gesetzt ist
+            // PrÃ¼fe, ob das Symbol gesetzt ist
             return symbols.Contains(symbol);
         }
     }
