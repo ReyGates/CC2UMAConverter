@@ -278,7 +278,7 @@ class UMA_OT_Export(Operator, ExportHelper):
             raceData.slots = []
             for item in context.scene.mesh_items:
                 if item.selected:
-                    slot = dataHandling.UMAData_Slot(item.slot_name, item.name, umaconverter.mesh_to_overlay(item.name) )
+                    slot = dataHandling.UMAData_Slot(item.slot_name, item.name, umaconverter.mesh_to_overlay(item.name), umaconverter.mesh_to_overlays(item.name) )
                     raceData.slots.append(slot)
 
 

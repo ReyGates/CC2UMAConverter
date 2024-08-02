@@ -19,10 +19,11 @@ class UMAData_Cloth:
         self.slots = slots
 
 class UMAData_Slot:
-    def __init__(self, name, mesh, overlay, **kwargs):  # Fügen Sie **kwargs hinzu
+    def __init__(self, name, mesh, overlay, overlays, **kwargs):  # Fügen Sie **kwargs hinzu
         self.name = name
         self.mesh = mesh
         self.overlay = overlay
+        self.overlays = overlays
         self.wardrobeSlot = ""
 
 class UMAData_Overlay:

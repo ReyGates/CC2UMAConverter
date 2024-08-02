@@ -152,6 +152,9 @@ def check_rig():
     for obj in bpy.data.objects:
         if obj.type == 'ARMATURE':
             bones = obj.data.bones
+            if 'root' in bones and any(child.name == 'CC_Base_BoneRoot' for child in bones['root'].children):
+                rig_status["is_BaseBoneRoot"] = True
+                return rig_status
             if 'root' in bones and any(child.name == 'CC_Base_Hip' for child in bones['root'].children):
                 rig_status["is_cc3_4_rig"] = True
                 return rig_status
@@ -182,7 +185,14 @@ def mesh_to_overlay(mesh_name):
                 return mat_slot.material.name
     return ""  # Konvertiere das Set zurück in eine Liste"""
 
-
+def mesh_to_overlays(mesh_name):
+    overlays = []
+    mesh = bpy.data.objects.get(mesh_name)
+    if mesh and mesh.type == 'MESH':
+        for mat_slot in mesh.material_slots:
+            if mat_slot.material:  # Überprüfe, ob das Material existiert
+                overlays.append(mat_slot.material.name)
+    return overlays
 
 def find_textures_custom_path(base_path, search_pattern):
     pattern = os.path.join(base_path, "**", search_pattern + "*.*")
