@@ -87,11 +87,7 @@ class UMA_PT_Panel(Panel):
                 box_clothing = layout.box()
                 box_clothing.label(text="Clothing Options")
                 box_clothing.prop(context.scene, "json_file_path", text="JSON File Path")
-
-
-
-
-
+                
             layout.operator("uma.convert", text="Convert")
         elif rig_status["is_uma_rig"]:
             if(context.scene.rig_type == 'race'):
@@ -131,6 +127,7 @@ class UMA_PT_Panel(Panel):
                 if(context.scene.rig_type == 'clothing' and item.selected):
                     box.prop(item, "wardrobe_slot")
 
+            layout.operator("uma.refresh", text="Refresh")
             layout.operator("uma.export", text="Export")
         else:
             layout.label(text="Please import compatible CC3/4 Mesh", icon="INFO")
@@ -179,6 +176,19 @@ class UMA_OT_Convert(Operator):
 
         umaconverter.add_uma_bones()
         self.report({'INFO'}, "Conversion process completed.")
+        return {'FINISHED'}
+
+class UMA_OT_Refresh(Operator):
+    bl_idname = "uma.refresh"
+    bl_label = "Refresh Meshes"
+
+    def execute(self, context):
+        bpy.context.scene.mesh_items.clear()
+        for obj in bpy.data.objects:
+            if obj.type == 'MESH':
+                item = bpy.context.scene.mesh_items.add()
+                item.name = obj.name
+
         return {'FINISHED'}
 
 class UMA_OT_Import(Operator, ImportHelper):
@@ -296,7 +306,7 @@ class UMA_OT_Export(Operator, ExportHelper):
                 if item.selected: 
                     print("Finding overlay for ", item.name)
                     print("Overlay: ", umaconverter.mesh_to_overlay(item.name))
-                    slot = dataHandling.UMAData_Slot(item.slot_name, item.name, umaconverter.mesh_to_overlay(item.name))
+                    slot = dataHandling.UMAData_Slot(item.slot_name, item.name, umaconverter.mesh_to_overlay(item.name), umaconverter.mesh_to_overlays(item.name))
                     slot.wardrobeSlot = item.wardrobe_slot
                     clothData.slots.append(slot)
 
@@ -353,6 +363,7 @@ def register():
     gui.register_mesh_items()
     bpy.utils.register_class(UMA_PT_Panel)
     bpy.utils.register_class(UMA_OT_Convert)
+    bpy.utils.register_class(UMA_OT_Refresh)
     bpy.utils.register_class(UMA_OT_Import)
     bpy.utils.register_class(UMA_OT_Export)
 
@@ -364,6 +375,7 @@ def unregister():
     gui.unregister_mesh_items()
     bpy.utils.unregister_class(UMA_PT_Panel)
     bpy.utils.unregister_class(UMA_OT_Convert)
+    bpy.utils.unregister_class(UMA_OT_Refresh)
     bpy.utils.unregister_class(UMA_OT_Import)
     bpy.utils.unregister_class(UMA_OT_Export)
 

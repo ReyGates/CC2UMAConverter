@@ -175,7 +175,7 @@ def meshes_to_overlay(mesh_names):
                 if mat_slot.material:  # Überprüfe, ob das Material existiert
                     unique_materials.add(mat_slot.material.name)
     return list(unique_materials)  # Konvertiere das Set zurück in eine Liste"""
-
+   
 def mesh_to_overlay(mesh_name):
     """Takes a mesh name and returns a single material name as string used by this mesh. Those are our overlay, UMA needs to generate them."""
     mesh = bpy.data.objects.get(mesh_name)
